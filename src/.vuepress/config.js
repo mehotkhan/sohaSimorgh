@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: "سهاسیمرغ",
+  title: "مواجهه",
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -17,7 +17,7 @@ module.exports = {
    */
   head: [
     ["meta", { name: "theme-color", content: "#ffffff" }],
-    ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }]
+    ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
     // ["link", { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" }],
     // [
     //   "link",
@@ -74,13 +74,35 @@ module.exports = {
     lastUpdated: "آخرین ویرایش",
     displayAllHeaders: false, // Default: false
     nav: [
-      { text: 'درباره اینجا', link: '/about/' },
-
+      { text: "فیلم مواجهه", link: "/movajehe-movie/" },
+      { text: "تیم سازنده", link: "/meet-team/" },
+      {
+        text: "درباره اینجا",
+        items: [
+          {
+            text: "سامانه پخش تعاملی ملّی سیمرغ",
+            link: "/soha-simurgh/",
+          },
+          {
+            text: "مسیر راه",
+            link: "/roadmap/",
+          },
+          {
+            text: "پرسش های متداول",
+            link: "/faq/",
+          },
+          {
+            text: "اطلاعات فنی",
+            link: "/technical-details/",
+          },
+          {
+            text: "اطلاعات تماس",
+            link: "/contact-info/",
+          },
+        ],
+      },
     ],
-    sidebar: [
-      '/',
- 
-    ],
+    sidebar: [],
   },
 
   /**
