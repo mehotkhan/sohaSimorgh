@@ -17,7 +17,7 @@ module.exports = {
    */
   head: [
     ["meta", { name: "theme-color", content: "#ffffff" }],
-    ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
+    ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }]
     // ["link", { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" }],
     // [
     //   "link",
@@ -37,10 +37,10 @@ module.exports = {
     //     href: "/icons/favicon-16x16.png",
     //   },
     // ],
-    [
-      "meta",
-      { name: "apple-mobile-web-app-status-bar-style", content: "black" },
-    ],
+    // [
+    //   "meta",
+    //   { name: "apple-mobile-web-app-status-bar-style", content: "black" },
+    // ],
     // ["link", { rel: "manifest", href: "/manifest.json" }],
     // [
     //   "link",
@@ -69,14 +69,17 @@ module.exports = {
   themeConfig: {
     repo: "https://github.com/mehotkhan/sohaSimurgh",
     editLinks: false,
-    docsDir: "",
-    editLinkText: "",
-    lastUpdated: true,
+    docsDir: "src",
+    persianDate: true,
+    lastUpdated: "آخرین ویرایش",
+    displayAllHeaders: false, // Default: false
     nav: [
-      {
-        text: "درباره اینجا",
-        link: "/about/",
-      },
+      { text: 'درباره اینجا', link: '/about/' },
+
+    ],
+    sidebar: [
+      '/',
+ 
     ],
   },
 
@@ -87,49 +90,49 @@ module.exports = {
     "reading-progress",
     "@vuepress/plugin-back-to-top",
     "@vuepress/plugin-medium-zoom",
-    "@mr-hope/sitemap",
-    {
-      urls: ["notes", "projects", "books"],
-    },
-    [
-      "@vuepress/pwa",
-      {
-        serviceWorker: true,
-        updatePopup: {
-          message: "محتوای جدید افزوده شده است .",
-          buttonText: "به روز رسانی",
-        },
-        generateSWConfig: {
-          importWorkboxFrom: "local",
-        },
-      },
-    ],
-    [
-      "seo",
-      {
-        siteTitle: (_, $site) => $site.title,
-        title: ($page) => $page.title,
-        description: ($page) => $page.frontmatter.description,
-        author: (_, $site) => $site.themeConfig.author,
-        tags: ($page) => $page.frontmatter.tags,
-        twitterCard: (_) => "summary_large_image",
-        type: ($page) =>
-          ["books", "projects", "notes"].some((folder) =>
-            $page.regularPath.startsWith("/" + folder)
-          )
-            ? "article"
-            : "page",
-        url: (_, $site, path) => ($site.themeConfig.domain || "") + path,
-        image: ($page, $site) =>
-          $page.frontmatter.image &&
-          (($site.themeConfig.domain &&
-            !$page.frontmatter.image.startsWith("http")) ||
-            "") + $page.frontmatter.image,
-        publishedAt: ($page) =>
-          $page.frontmatter.date && new Date($page.frontmatter.date),
-        modifiedAt: ($page) => $page.lastUpdated && new Date($page.lastUpdated),
-      },
-    ],
+    // "@mr-hope/sitemap",
+    // {
+    //   urls: ["notes", "projects", "books"],
+    // },
+    // [
+    //   "@vuepress/pwa",
+    //   {
+    //     serviceWorker: true,
+    //     updatePopup: {
+    //       message: "محتوای جدید افزوده شده است .",
+    //       buttonText: "به روز رسانی",
+    //     },
+    //     generateSWConfig: {
+    //       importWorkboxFrom: "local",
+    //     },
+    //   },
+    // ],
+    // // [
+    //   "seo",
+    //   {
+    //     siteTitle: (_, $site) => $site.title,
+    //     title: ($page) => $page.title,
+    //     description: ($page) => $page.frontmatter.description,
+    //     author: (_, $site) => $site.themeConfig.author,
+    //     tags: ($page) => $page.frontmatter.tags,
+    //     twitterCard: (_) => "summary_large_image",
+    //     type: ($page) =>
+    //       ["books", "projects", "notes"].some((folder) =>
+    //         $page.regularPath.startsWith("/" + folder)
+    //       )
+    //         ? "article"
+    //         : "page",
+    //     url: (_, $site, path) => ($site.themeConfig.domain || "") + path,
+    //     image: ($page, $site) =>
+    //       $page.frontmatter.image &&
+    //       (($site.themeConfig.domain &&
+    //         !$page.frontmatter.image.startsWith("http")) ||
+    //         "") + $page.frontmatter.image,
+    //     publishedAt: ($page) =>
+    //       $page.frontmatter.date && new Date($page.frontmatter.date),
+    //     modifiedAt: ($page) => $page.lastUpdated && new Date($page.lastUpdated),
+    //   },
+    // ],
     // ["@vuepress/plugin-google-analytics", { ga: "UA-149591828-1" }],
   ],
 };
