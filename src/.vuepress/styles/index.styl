@@ -1,72 +1,74 @@
-/**
- * Custom Styles here.
- *
- * ref：https://v1.vuepress.vuejs.org/config/#index-styl
- */
 
 .home .hero img
-  max-width 450px!important
+  max-height 475px!important
 
-html,body 
-  font-family: -apple-system, BlinkMacSystemFont, 'Vazir', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+.ltr
+    direction: ltr!important;
+    text-align: left!important;
 
 
+.features ol ,.posts ol
+  list-style-type: arabic-indic!important;  
+.posts ol
+  margin-top: 1rem
   
-@media (min-width: 992px)
-  .ant-col-lg-1, .ant-col-lg-2, .ant-col-lg-3, .ant-col-lg-4, .ant-col-lg-5, .ant-col-lg-6, .ant-col-lg-7, .ant-col-lg-8, .ant-col-lg-9, .ant-col-lg-10, .ant-col-lg-11, .ant-col-lg-12, .ant-col-lg-13, .ant-col-lg-14, .ant-col-lg-15, .ant-col-lg-16, .ant-col-lg-17, .ant-col-lg-18, .ant-col-lg-19, .ant-col-lg-20, .ant-col-lg-21, .ant-col-lg-22, .ant-col-lg-23, .ant-col-lg-24
-    float: right;
+@media (max-width: 719px)  
+  .sidebar 
+    transform: translateX(100%);
+  .search-box input
+    left:0!important
+ 
 
-@media (min-width: 768px)
-  .ant-col-md-1, .ant-col-md-2, .ant-col-md-3, .ant-col-md-4, .ant-col-md-5, .ant-col-md-6, .ant-col-md-7, .ant-col-md-8, .ant-col-md-9, .ant-col-md-10, .ant-col-md-11, .ant-col-md-12, .ant-col-md-13, .ant-col-md-14, .ant-col-md-15, .ant-col-md-16, .ant-col-md-17, .ant-col-md-18, .ant-col-md-19, .ant-col-md-20, .ant-col-md-21, .ant-col-md-22, .ant-col-md-23, .ant-col-md-24
-      float: right;
+.sidebar .nav-links .nav-item, .sidebar .nav-links .repo-link
+      padding: 0.5rem 1.5rem 0.5rem 0!important;
 
-.search-box
-  margin-right: unset !important
-  margin-left:1rem!important
-  direction: ltr  !important
-  left 0
-  right inherit  !important
+ p 
+    font-family: Vazir,GanjNamehSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
-.nav-links
-  float: left!important;
-  margin-left: 4rem
-  margin-right: unset  !important
+h1,
+.uk-h1,
+h2,
+.uk-h2,
+h3,
+.uk-h3,
+h4,
+.uk-h4,
+h5,
+.uk-h5,
+h6,
+.uk-h6,
+.uk-heading-small,
+.uk-heading-medium,
+.uk-heading-large,
+.uk-heading-xlarge,
+.uk-heading-2xlarge {
+  margin: 0 0 20px 0;
+  font-family: inherit !important;
+  font-weight: normal;
+  color: #333;
+  text-transform: none;
+}
+.uk-button-primary {
+  background-color: #26ace2;
+}
+.uk-tab > .uk-active > a {
+  border-color: #26ace2;
+}
+a,
+.uk-link {
+  color: #26ace2;
+}
+.uk-input,
+.uk-select,
+.uk-button,
+{
+  // border-radius: 4px!important;
+  border-width: 0!important;
+  border-bottom-width: 1px!important;
+}
+.uk-button-text {
+  padding: 3px 0!important
+  }
 
-
-  .repo-link
-    right: unset!important
-    left:1.7rem!important
-
-// .navbar .ant-col
-
-.page
-  padding-left: unset  
-  padding-right: 18rem 
-
-@media (max-width: 767px)
-  .page
-      padding-left: unset  
-      padding-right: 0
-
-  .sidebarWrap .mobile-sidebar
-    left: 0
-
-.sidebar
-  right 0
-  left: unset 
-  border-left: 1px solid #eaecef
-  border-right: 0 !important
-  ul 
-    direction: rtl
-
-a.header-anchor
-  float: right 
-  margin-right: -0.87em;
-  padding-left: 0.23em;
-  margin-left: unset  !important
-  padding-right: unset  !important
-a.sidebar-link::after
-  left 0
-  right: unset  !important
-.content__default,.feature
-  direction: rtl
+.navbar .site-name
+    font-size: 1rem!important;

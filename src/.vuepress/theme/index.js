@@ -1,3 +1,3 @@
 module.exports = {
-    extend: 'antdocs'
+    extend: 'vuepress-theme-default-rtl'
   }
