@@ -1,13 +1,13 @@
 <template>
   <main class="home" aria-labelledby="main-title">
+    <div class="player">
+      <video
+        ref="videoPlayer"
+        class="video-js vjs-theme-city"
+        :options="videoOptions"
+      ></video>
+    </div>
     <header>
-      <div class="player">
-        <video
-          ref="videoPlayer"
-          class="video-js vjs-theme-city"
-          :options="videoOptions"
-        ></video>
-      </div>
       <h1 v-if="data.heroText !== null" id="main-title">
         {{ data.heroText || $title || "Hello" }}
       </h1>
@@ -21,19 +21,6 @@
         <NavLink class="action-button" :item="actionLink2" />
       </p> -->
     <Content class="theme-default-content custom" />
-
-    <div v-if="data.features && data.features.length" class="features">
-      <div
-        v-for="(feature, index) in data.features"
-        :key="index"
-        class="feature"
-      >
-        <h2>
-          {{ feature.title }}
-        </h2>
-        <recentPosts :category="feature.category" show_tags="false" />
-      </div>
-    </div>
 
     <div v-if="data.footer" class="footer">
       {{ data.footer }}
@@ -108,7 +95,27 @@ export default {
 <style lang="stylus">
 // @import ('video.js/dist/video-js.css');
 .video-js {
-  margin: 3rem auto !important;
+  margin: 1rem auto !important;
+  width: 100%;
+}
+
+.video_contain {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+}
+
+video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  min-height: 50%;
+  min-width: 50%;
 }
 
 .home {
