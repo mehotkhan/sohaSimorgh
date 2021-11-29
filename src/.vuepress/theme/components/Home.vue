@@ -1,14 +1,13 @@
 <template>
   <main class="home" aria-labelledby="main-title">
     <header>
-      <div>
-        <img
-          v-if="data.heroImage"
-          :src="$withBase(data.heroImage)"
-          :alt="data.heroAlt || 'hero'"
-        />
+      <div class="player">
+        <video
+          ref="videoPlayer"
+          class="video-js vjs-theme-city"
+          :options="videoOptions"
+        ></video>
       </div>
-
       <h1 v-if="data.heroText !== null" id="main-title">
         {{ data.heroText || $title || "Hello" }}
       </h1>
@@ -16,12 +15,11 @@
       <p v-if="data.tagline !== null" class="description">
         {{ data.tagline || $description || "Welcome to your VuePress site" }}
       </p>
-
-      <!-- <p v-if="data.actionText && data.actionLink" class="action">
+    </header>
+    <!-- <p v-if="data.actionText && data.actionLink" class="action">
         <NavLink class="action-button" :item="actionLink" />
         <NavLink class="action-button" :item="actionLink2" />
       </p> -->
-    </header>
     <Content class="theme-default-content custom" />
 
     <div v-if="data.features && data.features.length" class="features">
@@ -45,24 +43,40 @@
 
 <script>
 import NavLink from "vuepress-theme-default-rtl/components/NavLink.vue";
+import videojs from "video.js";
+import("video.js/dist/video-js.css");
+import("@videojs/themes/dist/city/index.css");
 
 export default {
   name: "Home",
   data() {
     return {
-      camera: null,
-      scene: null,
-      renderer: null,
-      composer: null,
-      mesh: null,
-      height: 600,
-      width: "100%",
-      cloudParticles: [],
+      videoOptions: {
+        autoplay: false,
+        controls: true,
+        sources: [
+          {
+            src: "https://lamberta.github.io/html5-animation/examples/ch04/assets/movieclip.mp4",
+            type: "video/mp4",
+          },
+        ],
+      },
     };
   },
   components: { NavLink },
 
-  mounted() {},
+  mounted() {
+    // const src =
+    // "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8";
+    // this.playVideo(src);
+    this.player = videojs(
+      this.$refs.videoPlayer,
+      this.videoOptions,
+      function onPlayerReady() {
+        console.log("onPlayerReady", this);
+      }
+    );
+  },
   computed: {
     data() {
       return this.$page.frontmatter;
@@ -82,11 +96,21 @@ export default {
     },
   },
   methods: {},
-  beforeDestroy() {},
+  beforeDestroy() {
+    if (this.player) {
+      this.player.dispose();
+    }
+  },
 };
 </script>
 
+
 <style lang="stylus">
+// @import ('video.js/dist/video-js.css');
+.video-js {
+  margin: 3rem auto !important;
+}
+
 .home {
   padding: $navbarHeight 2rem 0;
   max-width: $homePageWidth;
