@@ -74,22 +74,21 @@ module.exports = {
     lastUpdated: "آخرین ویرایش",
     displayAllHeaders: false, // Default: false
     nav: [
-      { text: "فیلم مواجهه", link: "/movajehe-movie/" },
-      { text: "تیم سازنده", link: "/meet-team/" },
+      {
+        text: "سامانه پخش تعاملی سیمرغ",
+        link: "/soha-simurgh/",
+      },
       {
         text: "درباره اینجا",
         items: [
           {
-            text: "سامانه پخش تعاملی ملّی سیمرغ",
-            link: "/soha-simurgh/",
+            text: "پرسش های متداول",
+            link: "/faq/",
           },
+          { text: "تیم سازنده", link: "/meet-team/" },
           {
             text: "مسیر راه",
             link: "/roadmap/",
-          },
-          {
-            text: "پرسش های متداول",
-            link: "/faq/",
           },
           {
             text: "اطلاعات فنی",
