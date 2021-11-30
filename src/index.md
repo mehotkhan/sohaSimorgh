@@ -1,15 +1,12 @@
 ---
 home: true
-heroImage: https://v1.vuepress.vuejs.org/hero.png
-tagline: رسانه تعاملی سهاسیمرغ
-actionText: تماشا →
-actionLink: /guide/
-features:
-  - title: درباره اینجا
-    details: Feature 1 Description
-  - title: اطلاعات حقوقی
-    details: Feature 2 Description
-  - title: اطلاعات تماس
-    details: Feature 3 Description
-footer: Made by Ali Zemani with ❤️
+heroText: مواجه
+heroImage: ./hero.png
+tagline: سامانه پخش تعاملی سیمرغ
+actionText: تماشا
+actionLink: /movajehe-movie/
+actionText2: پرسش های متداول
+actionLink2: /faq/
+
+footer: همه چیز به طور شگفت انگیزی خوب باید باشد ، طراحی و توسعه توسط علی زِمانی ❤️
 ---

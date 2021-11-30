@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: "مواجهه",
+  title: "مواجهه | سیمای هنر و اندیشه",
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
