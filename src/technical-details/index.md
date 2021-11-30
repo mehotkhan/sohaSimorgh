@@ -1,6 +1,6 @@
 ---
 title: اطلاعات فنی نرم افزار
-sidebar: auto
+sidebar: false
 ---
 
 # اطلاعات فنی نرم افزار

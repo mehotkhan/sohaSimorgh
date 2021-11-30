@@ -1,10 +1,24 @@
 <template>
-  <div class="player">
-    <video
-      ref="videoPlayer"
-      class="video-js vjs-theme-city"
-      :options="videoOptions"
-    ></video>
+  <div>
+    <div class="player">
+      <video
+        ref="videoPlayer"
+        class="video-js vjs-theme-city"
+        :options="videoOptions"
+      ></video>
+      <div class="overlay" :hidden="!showOverlay">
+        <p uk-margin>
+          <button class="uk-button uk-button-default" @click="playMe">
+            play me
+          </button>
+        </p>
+        <p uk-margin>
+          <button class="uk-button uk-button-default" @click="stopMe">
+            stop me
+          </button>
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,12 +31,14 @@ export default {
   name: "InteractivePlayer",
   data() {
     return {
+      showOverlay: false,
       videoOptions: {
         autoplay: false,
         controls: true,
         sources: [
           {
-            src: "https://lamberta.github.io/html5-animation/examples/ch04/assets/movieclip.mp4",
+            src:
+              "https://lamberta.github.io/html5-animation/examples/ch04/assets/movieclip.mp4",
             type: "video/mp4",
           },
         ],
@@ -40,9 +56,28 @@ export default {
         console.log("onPlayerReady", this);
       }
     );
+    this.player.removeChild("BigPlayButton");
+    let self = this;
+    this.player.on("timeupdate", function() {
+      self.showPopup(this.currentTime());
+    });
   },
   computed: {},
-  methods: {},
+  methods: {
+    async showPopup(currentTime) {
+      if (currentTime >= 3) {
+        this.showOverlay = true;
+        console.log(currentTime);
+        // this.player.pause();
+      }
+    },
+    playMe() {
+      this.player.play();
+    },
+    stopMe() {
+      this.player.pause();
+    },
+  },
   beforeDestroy() {
     if (this.player) {
       this.player.dispose();
@@ -51,9 +86,11 @@ export default {
 };
 </script>
 
-
 <style lang="stylus">
-// @import ('video.js/dist/video-js.css');
+.player {
+  position: relative;
+}
+
 .video-js {
   margin: 1rem auto !important;
   width: 100%;
@@ -76,5 +113,18 @@ video {
   margin: auto;
   min-height: 50%;
   min-width: 50%;
+}
+
+.overlay {
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  background-color: #9797979c;
+  padding: 10px;
+  z-index: 2147483647;
+  width: 100%;
+  top: 0;
+  bottom: 0;
 }
 </style>
