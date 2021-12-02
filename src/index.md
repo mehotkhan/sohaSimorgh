@@ -2,6 +2,7 @@
 home: true
 heroText: فیلم مواجهه
 heroImage: ./empty-stage.png
+poster: ./empty-stage.png
 tagline: سامانه پخش تعاملی سیمرغ
 actionText: اطلاعات فنی
 actionLink: /technical-details/

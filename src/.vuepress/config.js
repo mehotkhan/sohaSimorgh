@@ -65,7 +65,7 @@ module.exports = {
    */
   theme: "default-rtl",
   themeConfig: {
-    repo: "https://github.com/mehotkhan/sohaSimurgh",
+    // repo: "https://github.com/mehotkhan/sohaSimurgh",
     editLinks: false,
     docsDir: "src",
     persianDate: true,
