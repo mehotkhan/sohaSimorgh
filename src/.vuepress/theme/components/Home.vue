@@ -1,28 +1,12 @@
 <template>
   <main class="home three-background" aria-labelledby="main-title">
+    <Content class="theme-default-content custom" />
     <header class="hero">
-      <div>
-        <img
-          v-if="data.heroImage"
-          :src="$withBase(data.heroImage)"
-          :alt="data.heroAlt || 'hero'"
-        />
-      </div>
-
-      <h1 v-if="data.heroText !== null" id="main-title">
-        {{ data.heroText || $title || "Hello" }}
-      </h1>
-
-      <p v-if="data.tagline !== null" class="description">
-        {{ data.tagline || $description || "Welcome to your VuePress site" }}
-      </p>
-
       <p v-if="data.actionText && data.actionLink" class="action">
         <NavLink class="action-button" :item="actionLink" />
         <NavLink class="action-button" :item="actionLink2" />
       </p>
     </header>
-    <Content class="theme-default-content custom" />
 
     <div v-if="data.footer" class="footer">
       {{ data.footer }}

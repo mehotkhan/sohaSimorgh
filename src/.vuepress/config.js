@@ -71,6 +71,7 @@ module.exports = {
     persianDate: true,
     lastUpdated: "آخرین ویرایش",
     displayAllHeaders: false, // Default: false
+    search: false,
     nav: [
       {
         text: "سامانه پخش تعاملی سیمرغ",

@@ -5,8 +5,24 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
-    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
+    <header
+      class="page-poster"
+      :style="{ backgroundImage: `url(${this.$page.frontmatter.poster})` }"
+    >
+      <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
+      <h1 v-if="this.$page.frontmatter.heroText !== null" id="main-title">
+        {{ this.$page.frontmatter.heroText || $title || "Hello" }}
+      </h1>
+
+      <p v-if="this.$page.frontmatter.tagline !== null" class="description">
+        {{
+          this.$page.frontmatter.tagline ||
+            $description ||
+            "Welcome to your VuePress site"
+        }}
+      </p>
+    </header>
     <div class="sidebar-mask" @click="toggleSidebar(false)" />
 
     <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
@@ -18,9 +34,9 @@
       </template>
     </Sidebar>
 
-    <!-- <Home v-if="$page.frontmatter.home" /> -->
+    <Home v-if="$page.frontmatter.home" />
 
-    <Page :sidebar-items="sidebarItems">
+    <Page v-else :sidebar-items="sidebarItems">
       <template #top>
         <slot name="page-top" />
       </template>
@@ -140,4 +156,15 @@ export default {
 @font-face
     font-family Dubai
     src url('../fonts/Dubai-Regular.eot') format('eot'), url('../fonts/Dubai-Regular.woff') format('woff'), url('../fonts/Dubai-Regular.ttf') format('truetype')
+
+.page-poster
+    height: 400px;
+    background-size: cover;
+    background-position: bottom;
+    h1
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    h1,p
+      text-align: center
+      color: white
 </style>
