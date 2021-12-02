@@ -22,12 +22,16 @@ body {
   list-style-type: arabic-indic!important;  
 .posts ol
   margin-top: 1rem
-  
+
+.sidebar 
+    position: sticky ;
+    top: 0 !important
+    border-left: none
+    float: right
 @media (max-width: 719px)  
   .sidebar 
     transform: translateX(100%);
-  .search-box input
-    left:0!important
+    position: fixed;
  
 
 .sidebar .nav-links .nav-item, .sidebar .nav-links .repo-link
@@ -93,8 +97,6 @@ a,
   background: none  !important
   // border: none  !important
 
-.sidebar 
-    position: sticky  !important;
-    top: 0 !important
-    border-left: none
-    float: right
+
+.sidebar-button
+  color:#dfba0e
