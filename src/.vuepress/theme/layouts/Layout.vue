@@ -43,7 +43,7 @@
 
     <Home v-if="$page.frontmatter.home" />
 
-    <Page v-else :sidebar-items="sidebarItems">
+    <Page v-else :sidebar-items="sidebarItems" :class="{ 'player-page' : this.$page.frontmatter.player}">
       <template #top>
         <slot name="page-top" />
       </template>
@@ -174,4 +174,6 @@ export default {
     h1,p
       text-align: center
       color: white
+.player-page .theme-default-content.content__default
+  max-width: 100%
 </style>

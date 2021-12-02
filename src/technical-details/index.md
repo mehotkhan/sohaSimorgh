@@ -1,6 +1,7 @@
 ---
 title: اطلاعات فنی نرم افزار
 sidebar: false
+player: true
 poster: ../poster/technical-details.jpg
 ---
 
