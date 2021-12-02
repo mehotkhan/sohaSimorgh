@@ -4,8 +4,8 @@
       <div class="video-overlay">
         
        <div class="uk-flex uk-flex-middle uk-text-center uk-flex-around uk-height-1-1">
-          <h2> اینوری</h2>
-          <h2>اونوری</h2>
+          <h2> اینوری برو</h2>
+          <h2>اونوری برو</h2>
       </div>
         
         </div>
@@ -152,6 +152,9 @@ export default {
 .video-overlay h2{
   color white
   margin:0
+}
+.vjs_video_3-dimensions {
+  height: 600px
 }
 // video {
 //     width: 100%;
