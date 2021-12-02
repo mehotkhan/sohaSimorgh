@@ -4,8 +4,6 @@ poster: ../poster/roadmap.jpg
 sidebar: auto
 ---
 
-# مسیر راه
-
 ## شهریور ماه 1399
 
 شروع مراحل R & D و تحقیق درباره کلیت پروژه

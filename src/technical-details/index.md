@@ -1,10 +1,10 @@
 ---
 title: اطلاعات فنی نرم افزار
-sidebar: false
+sidebar: auto
 poster: ../poster/technical-details.jpg
 ---
 
-# اطلاعات فنی نرم افزار
+## معماری و جزییات نرم افزاری
 
 پاره ای توضیحات در مورد جزییات فنی نرم افزار
 

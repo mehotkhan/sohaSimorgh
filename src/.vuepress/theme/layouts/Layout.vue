@@ -11,41 +11,48 @@
     >
       <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
-      <h1 v-if="this.$page.frontmatter.home !== null" id="main-title">
+      <h1 v-if="this.$page.frontmatter.home" id="main-title">
         فیلم تعاملی <b>مواجهه</b>
       </h1>
-      <h1 v-else-if="this.$page.frontmatter.heroText !== null" id="main-title">
-        {{ this.$page.frontmatter.heroText || $title || "Hello" }}
-      </h1>
-      <p v-if="this.$page.frontmatter.tagline !== null" class="description">
+      <p
+        v-if="
+          this.$page.frontmatter.home && this.$page.frontmatter.tagline !== null
+        "
+        class="description"
+      >
         {{
           this.$page.frontmatter.tagline ||
             $description ||
             "Welcome to your VuePress site"
         }}
       </p>
+      <h1 v-else id="main-title">
+        {{ this.$page.frontmatter.title || $title || "Hello" }}
+      </h1>
     </header>
-    <div class="sidebar-mask" @click="toggleSidebar(false)" />
+    <div>
+      <div class="sidebar-mask" @click="toggleSidebar(false)" />
 
-    <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
-      <template #top>
-        <slot name="sidebar-top" />
-      </template>
-      <template #bottom>
-        <slot name="sidebar-bottom" />
-      </template>
-    </Sidebar>
+      <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
+        <template #top>
+          <slot name="sidebar-top" />
+        </template>
+        <template #bottom>
+          <slot name="sidebar-bottom" />
+        </template>
+      </Sidebar>
 
-    <Home v-if="$page.frontmatter.home" />
+      <Home v-if="$page.frontmatter.home" />
 
-    <Page v-else :sidebar-items="sidebarItems">
-      <template #top>
-        <slot name="page-top" />
-      </template>
-      <template #bottom>
-        <slot name="page-bottom" />
-      </template>
-    </Page>
+      <Page v-else :sidebar-items="sidebarItems">
+        <template #top>
+          <slot name="page-top" />
+        </template>
+        <template #bottom>
+          <slot name="page-bottom" />
+        </template>
+      </Page>
+    </div>
   </div>
 </template>
 
