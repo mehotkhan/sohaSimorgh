@@ -1,24 +1,49 @@
 <template>
   <div>
     <div class="player">
+      <div class="video-overlay">
+        
+       <div class="uk-flex uk-flex-middle uk-text-center uk-flex-around uk-height-1-1">
+          <h2> اینوری</h2>
+          <h2>اونوری</h2>
+      </div>
+        
+        </div>
+
       <video
         ref="videoPlayer"
         class="video-js vjs-theme-forest"
         :options="videoOptions"
       ></video>
-      <div class="overlay" :hidden="!showOverlay">
-        <p uk-margin>
-          <button class="uk-button uk-button-default" @click="playMe">
-            play me
-          </button>
-        </p>
-        <p uk-margin>
-          <button class="uk-button uk-button-default" @click="stopMe">
-            stop me
-          </button>
-        </p>
-      </div>
+     
     </div>
+     <div class="uk-flex uk-flex-between">
+        <div class="">
+          عنوان سکانس
+        </div>
+        <div class="control">
+          <span
+            class="uk-margin-small-right"
+            uk-icon="chevron-double-right"
+          ></span>
+          <span
+            class="uk-margin-small-right"
+            uk-icon="play"
+            :hidden="playing"
+            @click="playMe"
+          ></span>
+          <span
+            class="uk-margin-small-right"
+            :hidden="!playing"
+            uk-icon="close"
+            @click="stopMe"
+          ></span>
+          <span
+            class="uk-margin-small-right"
+            uk-icon="chevron-double-left"
+          ></span>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -32,9 +57,10 @@ export default {
   data() {
     return {
       showOverlay: false,
+      playing: false,
       videoOptions: {
         autoplay: false,
-        controls: true,
+        controls: false,
         sources: [
           {
             src:
@@ -61,20 +87,20 @@ export default {
     // closed; so, we can create a new one each time the player is paused and
     // not worry about leaving extra nodes hanging around.
 
-    var modal_content =
-      '<div class="mcwidget-embed" data-widget-id="999999">asdasd asdasd</div><button>asdasd</button>';
+    // var modal_content =
+    //   '<div class="mcwidget-embed" data-widget-id="999999">asdasd asdasd</div><button>asdasd</button>';
 
-    // where the magic happens
-    var contentEl = document.createElement("div");
-    // probably better to just build the entire thing via DOM methods
-    contentEl.innerHTML = modal_content;
+    // // where the magic happens
+    // var contentEl = document.createElement("div");
+    // // probably better to just build the entire thing via DOM methods
+    // contentEl.innerHTML = modal_content;
 
-    this.player.createModal(contentEl);
+    // this.player.createModal(contentEl);
 
-    let self = this;
-    this.player.on("timeupdate", function() {
-      self.showPopup(this.currentTime());
-    });
+    // let self = this;
+    // this.player.on("timeupdate", function() {
+    //   self.showPopup(this.currentTime());
+    // });
   },
   computed: {},
   methods: {
@@ -87,9 +113,11 @@ export default {
     },
     playMe() {
       this.player.play();
+      this.playing = true;
     },
     stopMe() {
       this.player.pause();
+      this.playing = false;
     },
   },
   beforeDestroy() {
@@ -102,14 +130,33 @@ export default {
 
 <style lang="stylus">
 .player {
-  position: relative;
+    // border: 1px solid black;
+    // display: inline-block;
+    position: relative;
 }
 
 .video-js {
   margin: 1rem auto !important;
   width: 100%;
 }
-
+.video-overlay {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding: 0;
+    background-color: #dfba014f;
+    z-index: 999;
+    right: 0;
+    bottom: 0;
+}
+.video-overlay h2{
+  color white
+  margin:0
+}
+// video {
+//     width: 100%;
+//     height: 100%;
+// }
 // .video_contain {
 //   position: absolute;
 //   top: -50%;
