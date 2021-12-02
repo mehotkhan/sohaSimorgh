@@ -1,6 +1,4 @@
 module.exports = {
-  base: "/sohaSimurgh/",
-
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */

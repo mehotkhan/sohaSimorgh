@@ -3,7 +3,7 @@
     <div class="player">
       <video
         ref="videoPlayer"
-        class="video-js vjs-theme-city"
+        class="video-js vjs-theme-forest"
         :options="videoOptions"
       ></video>
       <div class="overlay" :hidden="!showOverlay">
@@ -25,7 +25,7 @@
 <script>
 import videojs from "video.js";
 import("video.js/dist/video-js.css");
-import("@videojs/themes/dist/city/index.css");
+import("@videojs/themes/dist/forest/index.css");
 
 export default {
   name: "InteractivePlayer",
@@ -56,7 +56,21 @@ export default {
         console.log("onPlayerReady", this);
       }
     );
-    this.player.removeChild("BigPlayButton");
+
+    // Modals are temporary by default. They dispose themselves when they are
+    // closed; so, we can create a new one each time the player is paused and
+    // not worry about leaving extra nodes hanging around.
+
+    var modal_content =
+      '<div class="mcwidget-embed" data-widget-id="999999">asdasd asdasd</div><button>asdasd</button>';
+
+    // where the magic happens
+    var contentEl = document.createElement("div");
+    // probably better to just build the entire thing via DOM methods
+    contentEl.innerHTML = modal_content;
+
+    this.player.createModal(contentEl);
+
     let self = this;
     this.player.on("timeupdate", function() {
       self.showPopup(this.currentTime());
@@ -67,7 +81,7 @@ export default {
     async showPopup(currentTime) {
       if (currentTime >= 3) {
         this.showOverlay = true;
-        console.log(currentTime);
+        // console.log(currentTime);
         // this.player.pause();
       }
     },
@@ -96,13 +110,13 @@ export default {
   width: 100%;
 }
 
-.video_contain {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-}
+// .video_contain {
+//   position: absolute;
+//   top: -50%;
+//   left: -50%;
+//   width: 200%;
+//   height: 200%;
+// }
 
 video {
   position: absolute;
@@ -121,10 +135,12 @@ video {
   text-align: center;
   font-size: 20px;
   background-color: #9797979c;
-  padding: 10px;
   z-index: 2147483647;
   width: 100%;
   top: 0;
-  bottom: 0;
+  bottom: 3rem;
+}
+.vjs-control-bar {
+  z-index:999
 }
 </style>
