@@ -1,5 +1,6 @@
 ---
 title: اطلاعات تماس
+poster: ../poster/contact.png
 sidebar: auto
 ---
 

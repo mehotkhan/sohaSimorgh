@@ -11,10 +11,12 @@
     >
       <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
-      <h1 v-if="this.$page.frontmatter.heroText !== null" id="main-title">
+      <h1 v-if="this.$page.frontmatter.home !== null" id="main-title">
+        فیلم تعاملی <b>مواجهه</b>
+      </h1>
+      <h1 v-else-if="this.$page.frontmatter.heroText !== null" id="main-title">
         {{ this.$page.frontmatter.heroText || $title || "Hello" }}
       </h1>
-
       <p v-if="this.$page.frontmatter.tagline !== null" class="description">
         {{
           this.$page.frontmatter.tagline ||

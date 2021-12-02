@@ -1,5 +1,6 @@
 ---
 title: تیم سازنده
+poster: ../poster/team.jpg
 sidebar: auto
 ---
 

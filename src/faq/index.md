@@ -1,5 +1,6 @@
 ---
 title: پرسش های متداول
+poster: ../poster/faq.jpg
 sidebar: auto
 ---
 

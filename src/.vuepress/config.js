@@ -78,26 +78,24 @@ module.exports = {
         link: "/soha-simurgh/",
       },
       {
-        text: "درباره اینجا",
-        items: [
-          {
-            text: "پرسش های متداول",
-            link: "/faq/",
-          },
-          { text: "تیم سازنده", link: "/meet-team/" },
-          {
-            text: "مسیر راه",
-            link: "/roadmap/",
-          },
-          {
-            text: "اطلاعات فنی",
-            link: "/technical-details/",
-          },
-          {
-            text: "اطلاعات تماس",
-            link: "/contact-info/",
-          },
-        ],
+        text: "پرسش های متداول",
+        link: "/faq/",
+      },
+      {
+        text: "اطلاعات فنی",
+        link: "/technical-details/",
+      },
+      {
+        text: "تیم سازنده",
+        link: "/meet-team/",
+      },
+      {
+        text: "نقشه راه",
+        link: "/roadmap/",
+      },
+      {
+        text: "تماس",
+        link: "/contact-info/",
       },
     ],
     sidebar: [],

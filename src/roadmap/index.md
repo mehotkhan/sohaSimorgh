@@ -1,6 +1,6 @@
 ---
 title: مسیر راه
-
+poster: ../poster/roadmap.jpg
 sidebar: auto
 ---
 

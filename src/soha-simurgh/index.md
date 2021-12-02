@@ -1,5 +1,6 @@
 ---
 title: سامانه پخش تعاملی سیمرغ
+poster: ../poster/simurgh.jpg
 sidebar: auto
 ---
 
