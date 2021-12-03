@@ -13,7 +13,7 @@
             "
             @click="rightChoice"
           >
-            <h2>اینوری برو</h2>
+            <h2>{{ this.rightPath }}</h2>
           </div>
           <div
             class="
@@ -22,7 +22,7 @@
             "
             @click="leftChoice"
           >
-            <h2>اونوری برو</h2>
+            <h2>{{ this.leftPath }}</h2>
           </div>
         </div>
       </div>
@@ -34,28 +34,35 @@
       ></video>
     </div>
     <div class="uk-flex uk-flex-between">
-      <div class="">عنوان سکانس</div>
+      <div class="">{{ this.getChapterName() }}</div>
       <div class="control">
-        <span
-          class="uk-margin-small-right"
-          uk-icon="chevron-double-right"
-        ></span>
-        <span
-          class="uk-margin-small-right"
-          uk-icon="play"
+        <button
+          @click="forward"
+          class="uk-margin-small-left uk-button uk-button-link"
+        >
+          <<< ۵ ثانیه
+        </button>
+
+        <button
           :hidden="playing"
           @click="playMe"
-        ></span>
-        <span
-          class="uk-margin-small-right"
+          class="uk-button uk-button-link"
+        >
+          پخش کردن
+        </button>
+        <button
           :hidden="!playing"
-          uk-icon="close"
           @click="stopMe"
-        ></span>
-        <span
-          class="uk-margin-small-right"
-          uk-icon="chevron-double-left"
-        ></span>
+          class="uk-button uk-button-link"
+        >
+          توقف
+        </button>
+        <button
+          @click="backward"
+          class="uk-margin-small-right uk-button uk-button-link"
+        >
+          ۵ ثانیه >>>
+        </button>
       </div>
     </div>
   </div>
@@ -72,10 +79,15 @@ export default {
   data() {
     return {
       showOverlay: false,
+      currentChapter: null,
+      currentChapterTitle: null,
+      nextChapter: null,
+      rightPath: null,
+      leftPath: null,
       playing: false,
       videoOptions: {
         autoplay: false,
-        controls: true,
+        controls: false,
         preload: "auto",
       },
     };
@@ -86,18 +98,56 @@ export default {
       type: "video/mp4",
       src: pathWay.initialPlaying.basePath + pathWay.initialPlaying.startFrom,
     });
+    this.currentChapter = pathWay.initialPlaying.startFrom;
     let self = this;
     this.player.on("timeupdate", function () {
       self.showPopup(this.currentTime(), this.duration());
     });
-
-    // console.log(pathWay.initialPlaying.startFrom);
   },
   computed: {},
   methods: {
-    async showPopup(currentTime, duration) {
-      if (currentTime > duration - 13) {
+    showPopup(currentTime, duration) {
+      // check if there is next chapter selector
+      var result = pathWay.chaptertLists.filter((obj) => {
+        return obj.file === this.currentChapter;
+      });
+
+      //load next chapter
+      if (currentTime > duration - 0.5) {
+        // if no next chapter load default chapter
+        if (this.nextChapter === null) {
+          var result = pathWay.chaptertLists.filter((obj) => {
+            return obj.file === this.currentChapter;
+          });
+          this.currentChapter = result[0].defaultPath;
+        } else {
+          this.currentChapter = this.nextChapter;
+          this.nextChapter = null;
+        }
+        this.player.src({
+          type: "video/mp4",
+          src: pathWay.initialPlaying.basePath + this.currentChapter,
+        });
+        this.showOverlay = false;
+        this.player.load();
+        this.player.play();
+      } else if (
+        result[0].nextPath &&
+        currentTime > duration - 13 &&
+        !this.nextChapter
+      ) {
         this.showOverlay = true;
+        //right side
+        this.rightPath = pathWay.chaptertLists.filter((obj) => {
+          return obj.file === result[0].nextPath[1];
+        })[0].title;
+
+        //left side
+        this.leftPath = pathWay.chaptertLists.filter((obj) => {
+          return obj.file === result[0].nextPath[0];
+        })[0].title;
+      } else {
+        this.showOverlay = false;
       }
     },
     playMe() {
@@ -109,24 +159,34 @@ export default {
       this.playing = false;
     },
     rightChoice() {
-      this.player.src({
-        type: "video/mp4",
-        src:
-          pathWay.initialPlaying.basePath + "Black.Mirror.Bandersnatch.1.mp4",
-      });
-      this.player.load();
-      this.player.play();
+      this.nextChapter = pathWay.chaptertLists.filter((obj) => {
+        return obj.title === this.rightPath;
+      })[0].file;
+
       this.showOverlay = false;
     },
     leftChoice() {
-      this.player.src({
-        type: "video/mp4",
-        src:
-          pathWay.initialPlaying.basePath + "Black.Mirror.Bandersnatch.2.mp4",
-      });
-      this.player.load();
-      this.player.play();
+      this.nextChapter = pathWay.chaptertLists.filter((obj) => {
+        return obj.title === this.leftPath;
+      })[0].file;
+
       this.showOverlay = false;
+    },
+    getChapterName() {
+      if (this.currentChapter) {
+        const data = pathWay.chaptertLists.filter((obj) => {
+          return obj.file === this.currentChapter;
+        })[0];
+        return data.title;
+      } else {
+        return;
+      }
+    },
+    forward() {
+      this.player.currentTime(this.player.currentTime() + 5);
+    },
+    backward() {
+      this.player.currentTime(this.player.currentTime() - 5);
     },
   },
   beforeDestroy() {
