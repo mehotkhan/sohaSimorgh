@@ -223,6 +223,10 @@ export default {
   bottom: 0;
 }
 
+.video-overlay >div {
+  display: flex;
+}
+
 .video-overlay .chapter:hover {
   background: #dfba017d;
 }
@@ -230,6 +234,7 @@ export default {
 .video-overlay .chapter {
   background-color: #dfba014f;
   cursor: pointer;
+  margin: 0;
 }
 
 .video-overlay h2 {
