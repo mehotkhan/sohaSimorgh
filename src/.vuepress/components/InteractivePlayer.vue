@@ -65,33 +65,33 @@
 import videojs from "video.js";
 import("video.js/dist/video-js.css");
 import("@videojs/themes/dist/forest/index.css");
+import pathWay from "./pathway.json";
 
 export default {
   name: "InteractivePlayer",
   data() {
     return {
-      showOverlay: true,
+      showOverlay: false,
       playing: false,
       videoOptions: {
         autoplay: false,
-        controls: false,
+        controls: true,
         preload: "auto",
-        sources: [
-          {
-            src: "https://stream.movajehemovie.ir/Black.Mirror.Bandersnatch.0.mp4",
-            type: "video/mp4",
-          },
-        ],
       },
     };
   },
   mounted() {
     this.player = videojs(this.$refs.videoPlayer, this.videoOptions, null);
-
+    this.player.src({
+      type: "video/mp4",
+      src: pathWay.initialPlaying.basePath + pathWay.initialPlaying.startFrom,
+    });
     let self = this;
     this.player.on("timeupdate", function () {
       self.showPopup(this.currentTime(), this.duration());
     });
+
+    // console.log(pathWay.initialPlaying.startFrom);
   },
   computed: {},
   methods: {
@@ -109,12 +109,24 @@ export default {
       this.playing = false;
     },
     rightChoice() {
-      console.log("im right");
-      console.log(this.player.currentSrc().split("/").pop());
+      this.player.src({
+        type: "video/mp4",
+        src:
+          pathWay.initialPlaying.basePath + "Black.Mirror.Bandersnatch.1.mp4",
+      });
+      this.player.load();
+      this.player.play();
+      this.showOverlay = false;
     },
     leftChoice() {
-      console.log(this.player.currentSrc().split("/").pop());
-      console.log("im left");
+      this.player.src({
+        type: "video/mp4",
+        src:
+          pathWay.initialPlaying.basePath + "Black.Mirror.Bandersnatch.2.mp4",
+      });
+      this.player.load();
+      this.player.play();
+      this.showOverlay = false;
     },
   },
   beforeDestroy() {

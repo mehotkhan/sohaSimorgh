@@ -1,0 +1,86 @@
+{
+    "initialPlaying": {
+        "startFrom": "Black.Mirror.Bandersnatch.0.mp4",
+        "basePath": "https://stream.movajehemovie.ir/"
+    },
+    "chaptertLists": [
+        {
+            "title": "Bandersnatch",
+            "file": "Black.Mirror.Bandersnatch.0.mp4",
+            "nextPath": [
+                "Black.Mirror.Bandersnatch.1.mp4",
+                "Black.Mirror.Bandersnatch.2.mp4"
+            ],
+            "defaultPath": "Black.Mirror.Bandersnatch.1.mp4"
+        },
+        {
+            "title": "Sugar puffs",
+            "file": "Black.Mirror.Bandersnatch.1.mp4",
+            "defaultPath": "Black.Mirror.Bandersnatch.3.mp4"
+        },
+        {
+            "title": "Frosties",
+            "file": "Black.Mirror.Bandersnatch.2.mp4",
+            "defaultPath": "Black.Mirror.Bandersnatch.3.mp4"
+        },
+        {
+            "title": "Bandersnatch",
+            "file": "Black.Mirror.Bandersnatch.3.mp4",
+            "nextPath": [
+                "Black.Mirror.Bandersnatch.4.mp4",
+                "Black.Mirror.Bandersnatch.5.mp4"
+            ],
+            "defaultPath": "Black.Mirror.Bandersnatch.4.mp4"
+        },
+        {
+            "title": "Thomson twins",
+            "file": "Black.Mirror.Bandersnatch.4.mp4",
+            "defaultPath": "Black.Mirror.Bandersnatch.6.mp4"
+        },
+        {
+            "title": "Now 2",
+            "file": "Black.Mirror.Bandersnatch.5.mp4",
+            "defaultPath": "Black.Mirror.Bandersnatch.6.mp4"
+        },
+        {
+            "title": "Work With tackersoft",
+            "file": "Black.Mirror.Bandersnatch.6.mp4",
+            "nextPath": [
+                "Black.Mirror.Bandersnatch.7.mp4",
+                "Black.Mirror.Bandersnatch.8.mp4"
+            ],
+            "defaultPath": "Black.Mirror.Bandersnatch.8.mp4"
+        },
+        {
+            "title": "Thomson twins",
+            "file": "Black.Mirror.Bandersnatch.4.mp4",
+            "defaultPath": "Black.Mirror.Bandersnatch.6.mp4"
+        },
+        {
+            "title": "Accept",
+            "file": "Black.Mirror.Bandersnatch.7.mp4"
+        },
+        {
+            "title": "Thomson twins",
+            "file": "Black.Mirror.Bandersnatch.4.mp4",
+            "defaultPath": "Black.Mirror.Bandersnatch.6.mp4"
+        },
+        {
+            "title": "Refuse",
+            "file": "Black.Mirror.Bandersnatch.8.mp4",
+            "nextPath": [
+                "Black.Mirror.Bandersnatch.9.mp4",
+                "Black.Mirror.Bandersnatch.10.mp4"
+            ],
+            "defaultPath": "Black.Mirror.Bandersnatch.9.mp4"
+        },
+        {
+            "title": "I Talk",
+            "file": "Black.Mirror.Bandersnatch.9.mp4"
+        },
+        {
+            "title": "No",
+            "file": "Black.Mirror.Bandersnatch.10.mp4"
+        }
+    ]
+}
