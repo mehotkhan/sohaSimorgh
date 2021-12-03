@@ -1,49 +1,63 @@
 <template>
   <div>
     <div class="player">
-      <div class="video-overlay">
-        
-       <div class="uk-flex uk-flex-middle uk-text-center uk-flex-around uk-height-1-1">
-          <h2> اینوری برو</h2>
-          <h2>اونوری برو</h2>
-      </div>
-        
+      <div class="video-overlay" :hidden="!showOverlay">
+        <div
+          uk-grid
+          class="uk-child-width-expand@s uk-text-center uk-height-1-1"
+        >
+          <div
+            class="
+              chapter
+              uk-flex uk-flex-middle uk-text-center uk-flex-around uk-height-1-1
+            "
+            @click="rightChoice"
+          >
+            <h2>اینوری برو</h2>
+          </div>
+          <div
+            class="
+              chapter
+              uk-flex uk-flex-middle uk-text-center uk-flex-around uk-height-1-1
+            "
+            @click="leftChoice"
+          >
+            <h2>اونوری برو</h2>
+          </div>
         </div>
+      </div>
 
       <video
         ref="videoPlayer"
         class="video-js vjs-theme-forest"
         :options="videoOptions"
       ></video>
-     
     </div>
-     <div class="uk-flex uk-flex-between">
-        <div class="">
-          عنوان سکانس
-        </div>
-        <div class="control">
-          <span
-            class="uk-margin-small-right"
-            uk-icon="chevron-double-right"
-          ></span>
-          <span
-            class="uk-margin-small-right"
-            uk-icon="play"
-            :hidden="playing"
-            @click="playMe"
-          ></span>
-          <span
-            class="uk-margin-small-right"
-            :hidden="!playing"
-            uk-icon="close"
-            @click="stopMe"
-          ></span>
-          <span
-            class="uk-margin-small-right"
-            uk-icon="chevron-double-left"
-          ></span>
-        </div>
+    <div class="uk-flex uk-flex-between">
+      <div class="">عنوان سکانس</div>
+      <div class="control">
+        <span
+          class="uk-margin-small-right"
+          uk-icon="chevron-double-right"
+        ></span>
+        <span
+          class="uk-margin-small-right"
+          uk-icon="play"
+          :hidden="playing"
+          @click="playMe"
+        ></span>
+        <span
+          class="uk-margin-small-right"
+          :hidden="!playing"
+          uk-icon="close"
+          @click="stopMe"
+        ></span>
+        <span
+          class="uk-margin-small-right"
+          uk-icon="chevron-double-left"
+        ></span>
       </div>
+    </div>
   </div>
 </template>
 
@@ -56,15 +70,15 @@ export default {
   name: "InteractivePlayer",
   data() {
     return {
-      showOverlay: false,
+      showOverlay: true,
       playing: false,
       videoOptions: {
         autoplay: false,
         controls: false,
+        preload: "auto",
         sources: [
           {
-            src:
-              "https://lamberta.github.io/html5-animation/examples/ch04/assets/movieclip.mp4",
+            src: "https://stream.movajehemovie.ir/Black.Mirror.Bandersnatch.0.mp4",
             type: "video/mp4",
           },
         ],
@@ -72,43 +86,18 @@ export default {
     };
   },
   mounted() {
-    // const src =
-    // "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8";
-    // this.playVideo(src);
-    this.player = videojs(
-      this.$refs.videoPlayer,
-      this.videoOptions,
-      function onPlayerReady() {
-        console.log("onPlayerReady", this);
-      }
-    );
+    this.player = videojs(this.$refs.videoPlayer, this.videoOptions, null);
 
-    // Modals are temporary by default. They dispose themselves when they are
-    // closed; so, we can create a new one each time the player is paused and
-    // not worry about leaving extra nodes hanging around.
-
-    // var modal_content =
-    //   '<div class="mcwidget-embed" data-widget-id="999999">asdasd asdasd</div><button>asdasd</button>';
-
-    // // where the magic happens
-    // var contentEl = document.createElement("div");
-    // // probably better to just build the entire thing via DOM methods
-    // contentEl.innerHTML = modal_content;
-
-    // this.player.createModal(contentEl);
-
-    // let self = this;
-    // this.player.on("timeupdate", function() {
-    //   self.showPopup(this.currentTime());
-    // });
+    let self = this;
+    this.player.on("timeupdate", function () {
+      self.showPopup(this.currentTime(), this.duration());
+    });
   },
   computed: {},
   methods: {
-    async showPopup(currentTime) {
-      if (currentTime >= 3) {
+    async showPopup(currentTime, duration) {
+      if (currentTime > duration - 13) {
         this.showOverlay = true;
-        // console.log(currentTime);
-        // this.player.pause();
       }
     },
     playMe() {
@@ -118,6 +107,14 @@ export default {
     stopMe() {
       this.player.pause();
       this.playing = false;
+    },
+    rightChoice() {
+      console.log("im right");
+      console.log(this.player.currentSrc().split("/").pop());
+    },
+    leftChoice() {
+      console.log(this.player.currentSrc().split("/").pop());
+      console.log("im left");
     },
   },
   beforeDestroy() {
@@ -130,43 +127,48 @@ export default {
 
 <style lang="stylus">
 .player {
-    // border: 1px solid black;
-    // display: inline-block;
-    position: relative;
+  // border: 1px solid black;
+  // display: inline-block;
+  position: relative;
 }
 
 .video-js {
   margin: 1rem auto !important;
   width: 100%;
 }
+
+.video-overlay .uk-grid {
+  margin: 0;
+}
+
 .video-overlay {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    padding: 0;
-    background-color: #dfba014f;
-    z-index: 999;
-    right: 0;
-    bottom: 0;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  padding: 0;
+  z-index: 999;
+  right: 0;
+  bottom: 0;
 }
-.video-overlay h2{
-  color white
-  margin:0
+
+.video-overlay .chapter:hover {
+  background: #dfba017d;
 }
+
+.video-overlay .chapter {
+  background-color: #dfba014f;
+  cursor: pointer;
+}
+
+.video-overlay h2 {
+  font-size: 2rem;
+  color: white;
+  margin: 0;
+}
+
 .vjs_video_3-dimensions {
-  height: 600px
+  height: 600px;
 }
-// video {
-//     width: 100%;
-//     height: 100%;
-// }
-// .video_contain {
-//   position: absolute;
-//   top: -50%;
-//   left: -50%;
-//   width: 200%;
-//   height: 200%;
-// }
 
 video {
   position: absolute;
@@ -190,7 +192,8 @@ video {
   top: 0;
   bottom: 3rem;
 }
+
 .vjs-control-bar {
-  z-index:999
+  z-index: 999;
 }
 </style>
