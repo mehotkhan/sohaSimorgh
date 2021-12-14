@@ -11,6 +11,8 @@ export default ({
   // const SEA = require("gun/sea.js");
   // const VueGun = require("vue-gun");
 
+  // const VueGun = require("vue-gun");
+
   // Vue.use(VueGun, {
   //   gun: Gun(["https://gundb.alizemani.ir/gun"]),
   // });
