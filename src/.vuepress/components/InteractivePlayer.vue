@@ -96,7 +96,6 @@ export default {
       playing: false,
       preLoading: false,
       selected: false,
-      // torrent: null,
       player: null,
       videoOptions: {
         autoplay: false,
