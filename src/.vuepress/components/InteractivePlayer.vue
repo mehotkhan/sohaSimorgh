@@ -89,11 +89,13 @@ export default {
       currentChapterTitle: null,
       nextChapter: null,
       nextChapterBlobURL: null,
+      currentChapterBlobUrl: null,
       nextChapterPercentage: 0,
       rightPath: null,
       leftPath: null,
       playing: false,
       preLoading: false,
+      selected: false,
       // torrent: null,
       player: null,
       videoOptions: {
@@ -117,74 +119,123 @@ export default {
 
     // 1- preload first chapter by initial loading
 
-    this.preLeload(
-      pathWay.initialPlaying.basePath + pathWay.initialPlaying.startFrom
-    );
+    // const startFrom = "Black.Mirror.Bandersnatch.9.480.mp4";
+    const startFrom = pathWay.initialPlaying.startFrom;
 
-    this.currentChapter = pathWay.initialPlaying.startFrom;
+    this.preLoad(pathWay.initialPlaying.basePath + startFrom);
 
+    this.currentChapter = startFrom;
+
+    // implement Time Rules
     let self = this;
     this.player.on("timeupdate", function () {
-      self.showPopup(this.currentTime(), this.duration());
+      self.timeRules(this.currentTime(), this.duration());
     });
   },
   computed: {},
   methods: {
-    showPopup(currentTime, duration) {
-      // check if there is next chapter selector
-      // var result = pathWay.chaptertLists.filter((obj) => {
-      //   return obj.file === this.currentChapter;
-      // });
+    timeRules(currentTime, duration) {
+      /*
 
-      // if no next chapter load default chapter
-      // if (this.nextChapter === null) {
-      //   var result = pathWay.chaptertLists.filter((obj) => {
-      //     return obj.file === this.currentChapter;
-      //   });
-      //   this.currentChapter = result[0].defaultPath;
-      // } else {
-      //   this.currentChapter = this.nextChapter;
-      //   this.nextChapter = null;
-      // }
+       on now playing we have current chapter details
+       for query to pathway.json
 
-      //load next chapter
-      if (currentTime > duration - 0.5) {
-        this.player.src({
-          type: "video/mp4",
-          src: this.nextChapterBlobURL,
-        });
+      */
 
-        this.preLoading = false;
-        this.showOverlay = false;
-        this.player.load();
-        this.player.play();
-      } else if (currentTime > duration - 10 && !this.preLoading) {
-        this.preLeload(pathWay.initialPlaying.basePath + result[0].defaultPath);
-      } else if (
-        currentTime > duration - 13 &&
-        result[0].nextPath &&
-        !this.nextChapter
+      const currentChapterDetails =
+        currentChapterDetails ||
+        pathWay.chapterLists.filter((obj) => {
+          return obj.file === this.currentChapter;
+        })[0];
+
+      // we Decide how to handle events
+
+      /*
+        Rule One : at beginning of first playing , 
+        we start preloading next default chapter
+
+      */
+
+      if (
+        !this.preLoading &&
+        this.nextChapterBlobURL === null &&
+        currentChapterDetails !== undefined &&
+        currentChapterDetails.defaultPath !== undefined
       ) {
+        console.log("Rule one");
+        const defaultChapter = currentChapterDetails.defaultPath;
+        this.preLoad(pathWay.initialPlaying.basePath + defaultChapter);
+
+        //set next chapter by default
+        this.nextChapter = defaultChapter;
+      }
+
+      // Rule Two : 13 Seconds before ending We show pop up selector
+      if (
+        currentTime !== 0 &&
+        currentTime > duration - 13 &&
+        currentChapterDetails !== undefined &&
+        currentChapterDetails.nextPath !== undefined &&
+        !this.showOverlay &&
+        !this.selected
+      ) {
+        console.log("Rule Two");
+
         this.showOverlay = true;
 
         //right side
-        this.rightPath = pathWay.chaptertLists.filter((obj) => {
-          return obj.file === result[0].nextPath[1];
+        this.rightPath = pathWay.chapterLists.filter((obj) => {
+          return obj.file === currentChapterDetails.nextPath[1];
         })[0].title;
 
         //left side
-        this.leftPath = pathWay.chaptertLists.filter((obj) => {
-          return obj.file === result[0].nextPath[0];
+        this.leftPath = pathWay.chapterLists.filter((obj) => {
+          return obj.file === currentChapterDetails.nextPath[0];
         })[0].title;
-      } else {
+      }
+
+      /*
+          Rule Three : .1 Seconds before ending We Play next chapter
+          and reset playing board
+      */
+
+      if (currentTime > duration - 0.1 && this.currentChapter !== null) {
+        console.log("Rule Three");
+
+        this.currentChapterBlobUrl = JSON.parse(
+          JSON.stringify(this.nextChapterBlobURL)
+        );
+
         this.showOverlay = false;
+        if (this.nextChapter !== null) {
+          this.player.src({
+            type: "video/mp4",
+            src: this.currentChapterBlobUrl,
+          });
+          this.player.load();
+          this.player.play();
+        } else {
+          console.log("stopping");
+          this.player.pause();
+          this.playing = false;
+        }
+        console.log("ding");
+        console.log(currentChapterDetails);
+
+        // clean ups
+        this.currentChapter = JSON.parse(JSON.stringify(this.nextChapter));
+        this.nextChapterBlobURL = null;
+        this.nextChapter = null;
       }
     },
     playMe() {
-      this.player.src({
-        type: "video/mp4",
-        src: this.nextChapterBlobURL,
-      });
+      if (!this.player.src()) {
+        this.player.src({
+          type: "video/mp4",
+          src: this.currentChapterBlobUrl,
+        });
+      }
+
       this.player.play();
       this.playing = true;
     },
@@ -193,21 +244,23 @@ export default {
       this.playing = false;
     },
     rightChoice() {
-      this.nextChapter = pathWay.chaptertLists.filter((obj) => {
+      this.nextChapter = pathWay.chapterLists.filter((obj) => {
         return obj.title === this.rightPath;
       })[0].file;
+
       // 2 : preload next chapter when user select chapter
-      this.preLeload(pathWay.initialPlaying.basePath + this.nextChapter);
+      this.preLoad(pathWay.initialPlaying.basePath + this.nextChapter);
+      this.selected = true;
       this.showOverlay = false;
     },
     leftChoice() {
-      this.nextChapter = pathWay.chaptertLists.filter((obj) => {
+      this.nextChapter = pathWay.chapterLists.filter((obj) => {
         return obj.title === this.leftPath;
       })[0].file;
 
       // 2 : preload next chapter when user select chapter
-      this.preLeload(pathWay.initialPlaying.basePath + this.nextChapter);
-
+      this.preLoad(pathWay.initialPlaying.basePath + this.nextChapter);
+      this.selected = true;
       this.showOverlay = false;
     },
 
@@ -218,7 +271,8 @@ export default {
       this.player.currentTime(this.player.currentTime() - 5);
     },
 
-    preLeload(url) {
+    preLoad(url) {
+      console.log("start preloading");
       this.preLoading = true;
       var xhr = new XMLHttpRequest();
       xhr.open("GET", url, true);
@@ -230,18 +284,26 @@ export default {
           type: "video/mp4",
         });
 
-        self.nextChapterBlobURL = URL.createObjectURL(blob);
-        console.log(URL.createObjectURL(blob));
+        if (!self.currentChapterBlobUrl) {
+          self.currentChapterBlobUrl = URL.createObjectURL(blob);
+        } else {
+          self.nextChapterBlobURL = URL.createObjectURL(blob);
+        }
       };
 
       xhr.onprogress = function (oEvent) {
         if (oEvent.lengthComputable) {
           var percentComplete = oEvent.loaded / oEvent.total;
-          console.log(percentComplete);
           self.nextChapterPercentage = percentComplete;
         }
       };
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          self.preLoading = false;
+        }
+      };
       xhr.send();
+      console.log("end preloading");
     },
   },
   beforeDestroy() {
