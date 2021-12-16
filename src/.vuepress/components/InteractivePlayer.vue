@@ -225,6 +225,7 @@ export default {
         this.currentChapter = JSON.parse(JSON.stringify(this.nextChapter));
         this.nextChapterBlobURL = null;
         this.nextChapter = null;
+        this.selected = false;
       }
     },
     playMe() {
