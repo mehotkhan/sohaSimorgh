@@ -57,7 +57,7 @@ F-->H{خط داستانی ششم }
 
 
 
-![image-20220124185101493](/home/ali/Projects/sohaSimorgh/chart.png)
+![chart](./chart.png)
 
 ## ۳- سرور های ناظر 
 
